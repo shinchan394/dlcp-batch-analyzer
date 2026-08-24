@@ -1,5 +1,5 @@
 ## 실행 화면
-![DLCP Batch Analyzer](screenshots/main.png)# DLCP Batch Analyzer
+<img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/e4643229-bf3e-4848-8108-ed7311d3e958" />
 
 DLCP 측정 데이터를 빠르게 일괄 분석하기 위해 만든 Windows GUI 프로그램입니다.
 

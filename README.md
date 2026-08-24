@@ -1,45 +1,64 @@
 # DLCP Batch Analyzer
 
-바이어스별 DLCP CSV를 한 번에 처리하는 Windows GUI입니다. 외부 Python 패키지 없이 Tkinter로 동작하도록 만들었습니다.
+DLCP 측정 데이터를 빠르게 일괄 분석하기 위해 만든 Windows GUI 프로그램입니다.
 
-## 기능
+## 프로젝트 배경
+기존에는 여러 Bias/Vac 조건의 CSV 데이터를 개별적으로 정리하고
+fitting과 carrier density 계산을 반복해야 했습니다.
 
-- 여러 CSV/TSV 파일 일괄 입력
-- Bias 폴더 하나 또는 여러 Bias 폴더가 들어 있는 상위 폴더를 선택하면 하위 CSV를 재귀적으로 일괄 입력
-- 상대 유전상수 `epsilon_r`와 소자 면적 `cm²`를 한 번 설정하면 이후 추가 CSV에 자동 상속
-- 파일명이 `DC Bias Vac_...csv`인 경우 앞의 전압을 DC bias, 뒤의 전압을 Vac로 자동 인식
-- CSV에 Vac 열이 없으면 파일명 Vac를 x축으로 사용
-- 두 개 이상의 반복 capacitance 행 또는 capacitance 열은 자동 평균
-- CSV에서 Vac와 capacitance 열 선택 또는 `[Auto-average capacitance]` 선택
-- 논문 기준 `dV`는 peak-to-peak로 취급하며, 입력이 peak amplitude 또는 RMS amplitude이면 자동으로 peak-to-peak로 변환
-- 각 파일의 `C(dV_pp) = C0 + C1·dV_pp + C2·dV_pp²` order-2 least-squares fitting
-- 파일 내부 raw/smoothed/fitted capacitance와 fit derivative 출력
-- Bias 순서의 `C0`, `C1` smoothing 및 bias derivative 출력
-- `N_CV = 2C³/(q·epsilon·A²·dC/dV)` 자동 계산
-- `N_DL = C0³/(2q·epsilon·A²·C1)` 및 부호 진단용 signed/absolute 값 출력
-- `W = epsilon·epsilon0·A/C0` depletion width를 nm 단위로 출력
-- CSV 내부 `bias_V`가 있으면 단일 nominal bias group에서도 `C vs bias_V` derivative로 N_CV를 계산
-- 여러 bias group을 넣으면 `|N_CV| / |N_DL|`을 `W (nm)`에 대해 overlay하는 log-y 그래프 제공 (`10^16`–`10^19 cm^-3` 고정 눈금)
-- Summary 표/CSV에서는 불필요한 File 열을 제거하고 Bias별 결과만 표시
-- 분석한 Bias 결과를 메모리에 누적 보관하여 현재 CSV를 삭제해도 summary와 preview에서 다시 선택 가능
-- profile 그래프는 별도 창에서 열리며, 발표/논문용 1600×1000 PNG로 저장 가능
-- 요약 CSV, 파일별 detail CSV, 입력 설정 기록 저장
-- 10개 Vac CSV를 같은 DC bias group으로 묶어 하나의 DLCP polynomial fitting으로 처리
-- CSV를 파일당 한 번만 파싱하고 preview/batch 사이에 캐시하여 반복 실행 속도 개선
+이 반복 작업을 줄이고 분석 실수를 줄이기 위해
+CSV 자동 인식, polynomial fitting, N_CV / N_DL 계산,
+profile 시각화를 하나의 프로그램으로 통합했습니다.
 
-## 실행
+## 주요 기능
+- 여러 CSV/TSV 일괄 분석
+- 파일명에서 DC Bias / Vac 자동 인식
+- DLCP 2차 polynomial fitting
+- N_CV / N_DL 자동 계산
+- depletion width 계산
+- bias profile 그래프 생성
+- 분석 결과 CSV 저장
+- Windows EXE 빌드 지원
 
-```powershell
+## 사용 기술
+- Python
+- Tkinter
+- CSV 데이터 처리
+- Numerical fitting
+- PyInstaller
+- Git / GitHub
+
+## 문제 해결
+### 1. 반복 CSV 처리 자동화
+기존에는 각 Vac 데이터를 수동으로 입력해야 했습니다.
+
+파일명 규칙을 파싱해 Bias와 Vac를 자동 추출하도록 구현했습니다.
+
+### 2. 여러 capacitance 데이터 처리
+CSV 구조가 파일마다 조금씩 다른 문제를 해결하기 위해
+capacitance 행/열을 자동 탐색하고 반복 측정값은 평균 처리하도록 구현했습니다.
+
+### 3. N_CV / N_DL 계산
+분석 과정에서 단위와 voltage convention이 결과에 영향을 주기 때문에
+GUI에서 capacitance unit과 Vac convention을 명시하도록 설계했습니다.
+
+## 실행 방법
+
 python dlcp_gui.py
-```
 
-Windows에서 단일 EXE를 만들려면 PyInstaller가 설치된 환경에서 다음을 실행합니다.
+## EXE 빌드
 
-```powershell
 .\build_exe.ps1
-```
 
-생성 파일은 `dist\DLCP_Batch_Analyzer.exe`입니다.
+## 테스트
+
+python test_dlcp.py
+
+## 향후 개선
+- 입력 CSV 포맷 자동 판별 강화
+- fitting quality 지표 추가
+- GUI UX 개선
+- 여러 측정 결과 비교 기능 추가
 
 ## 실제 장비 CSV 사용 순서
 

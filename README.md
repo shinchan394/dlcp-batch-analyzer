@@ -1,78 +1,41 @@
-## 실행 화면
-<img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/e4643229-bf3e-4848-8108-ed7311d3e958" />
+# CQD Research Software Toolkit
 
-DLCP 측정 데이터를 빠르게 일괄 분석하기 위해 만든 Windows GUI 프로그램입니다.
+CQD 광검출기 연구의 **측정 → 분석 → 시각화** 작업을 개선하기 위해 개발한 Windows 연구용 소프트웨어 3종입니다. 반복 측정과 데이터 처리의 문제를 직접 요구사항으로 정리하고, AI 코딩 도구를 활용해 구현·검증·배포를 진행했습니다.
 
-## 프로젝트 배경
-기존에는 여러 Bias/Vac 조건의 CSV 데이터를 개별적으로 정리하고
-fitting과 carrier density 계산을 반복해야 했습니다.
+## 프로그램과 다운로드
 
-이 반복 작업을 줄이고 분석 실수를 줄이기 위해
-CSV 자동 인식, polynomial fitting, N_CV / N_DL 계산,
-profile 시각화를 하나의 프로그램으로 통합했습니다.
+| 프로그램 | 배포 버전 | 주요 역할 | Windows ZIP |
+|---|---|---|---|
+| DLCP Research Studio | 17.2 | DLCP 계산, EIS 등가회로 피팅과 진단 | [다운로드](https://github.com/shinchan394/dlcp-batch-analyzer/releases/download/research-toolkit-2026-10-16/DLCP_Research_Studio_V17_2_Windows.zip) |
+| MFIA DLCP Control | 1.4 | Zurich MFIA 조건별 DLCP 자동 취득 | [다운로드](https://github.com/shinchan394/dlcp-batch-analyzer/releases/download/research-toolkit-2026-10-16/MFIA_DLCP_Control_1_4_Windows.zip) |
+| Measurement Plot Studio | 2.1.1 | CSV 오버레이와 그래프 저장 | [다운로드](https://github.com/shinchan394/dlcp-batch-analyzer/releases/download/research-toolkit-2026-10-16/Measurement_Plot_Studio_2_1_1_Windows.zip) |
 
-## 주요 기능
-- 여러 CSV/TSV 일괄 분석
-- 파일명에서 DC Bias / Vac 자동 인식
-- DLCP 2차 polynomial fitting
-- N_CV / N_DL 자동 계산
-- depletion width 계산
-- bias profile 그래프 생성
-- 분석 결과 CSV 저장
-- Windows EXE 빌드 지원
+위 다운로드는 해당 Release가 공개된 뒤 사용할 수 있습니다. ZIP을 모두 압축 해제하고 내부 실행 안내를 따르세요. Python 설치는 필요 없습니다. PLOT은 EXE와 `_internal` 폴더를 함께 유지해야 합니다.
 
-## 사용 기술
-- Python
-- Tkinter
-- CSV 데이터 처리
-- Numerical fitting
-- PyInstaller
-- Git / GitHub
+**소스 공개 범위:** 루트의 `dlcp_gui.py`, 빌드 스크립트와 `DLCP_Batch_Analyzer_v7.exe`는 과거 V7입니다. 최신 세 프로그램의 소스는 이 저장소에 아직 반영되지 않았습니다. V7 소스로 최신 배포본을 재현할 수 있다고 주장하지 않습니다. [V7 원래 안내](docs/LEGACY_V7_README.md)를 별도로 보존합니다.
 
-## 문제 해결
-### 1. 반복 CSV 처리 자동화
-기존에는 각 Vac 데이터를 수동으로 입력해야 했습니다.
+[개발 경험과 문제 해결](docs/PORTFOLIO_KO.md) · [사용 방법과 검증 범위](docs/PROGRAMS_KO.md) · [Release](https://github.com/shinchan394/dlcp-batch-analyzer/releases/tag/research-toolkit-2026-10-16)
 
-파일명 규칙을 파싱해 Bias와 Vac를 자동 추출하도록 구현했습니다.
+## 연구에서 발견한 문제
 
-### 2. 여러 capacitance 데이터 처리
-CSV 구조가 파일마다 조금씩 다른 문제를 해결하기 위해
-capacitance 행/열을 자동 탐색하고 반복 측정값은 평균 처리하도록 구현했습니다.
+바이어스와 AC amplitude 조건이 늘어나면 장비 설정, CSV 정리, 개별 피팅과 그래프 저장을 반복해야 합니다. 수작업 시간이 길어지고 단위·파일 선택·계산 조건을 일관되게 관리하기 어려워, 각 작업을 재사용할 수 있는 소프트웨어로 연결했습니다.
 
-### 3. N_CV / N_DL 계산
-분석 과정에서 단위와 voltage convention이 결과에 영향을 주기 때문에
-GUI에서 capacitance unit과 Vac convention을 명시하도록 설계했습니다.
+1. **자동 측정:** 측정 계획에 따라 MFIA로 데이터를 취득하고 조건별로 저장합니다.
+2. **분석:** DLCP 다항식 피팅과 농도·폭 계산, EIS 등가회로 피팅 및 진단 결과를 확인합니다.
+3. **시각화:** 결과 CSV를 조건별로 겹쳐 보고 발표·보고서용 그래프와 설정을 저장합니다.
 
-## 실행 방법
+## 개발 역할과 AI 활용
 
-python dlcp_gui.py
+연구 과정의 반복 작업과 오류 가능성을 발견하고, 필요한 측정 순서·단위·출력 항목을 정했습니다. AI를 코드 구현과 디버깅에 활용하고 테스트 및 실제 연구 사용 중 발견한 문제를 바탕으로 수정했습니다. 연구 문제의 정의, 실험 조건의 선택과 결과의 물리적 해석은 연구자가 판단해야 하는 부분으로 구분했습니다.
 
-## EXE 빌드
+## 검증 근거
 
-.\build_exe.ps1
+| 프로그램 | 확인한 내용 | 한계 |
+|---|---|---|
+| 분석 17.2 | 2026-10-08 Windows 테스트 73개 통과. EXE의 합성 2바이어스 피팅·GUI 선택 항목·내보내기 검사 통과 | Cj/Cother의 물리적 분리는 식별 가능성이 확보돼야 함 |
+| 자동 측정 1.4 | 패키지 기록: 테스트 74개 통과, 1개 skip. 사용자 보고: 610포인트 약 75분 취득 사례 | 빌드 환경의 EXE GUI 검증은 Tcl 접근 오류로 미완료. 모든 장비 조건의 검증은 아님 |
+| PLOT 2.1.1 | 테스트 33개, GUI·이미지 저장 검증 및 EXE 자가검사 통과 | 사용자 PC마다 실행 여부는 별도 확인 필요 |
 
-## 테스트
+약 75분과 과거 약 101분의 측정 사례는 통제된 성능 비교가 아니므로 SW 단독의 개선율로 표현하지 않습니다. R²는 피팅 적합도이며 측정 정확도의 보증값이 아닙니다. EIS의 좋은 피팅만으로 특정 계면·트랩의 기여를 확정하지 않습니다.
 
-python test_dlcp.py
-
-## 향후 개선
-- 입력 CSV 포맷 자동 판별 강화
-- fitting quality 지표 추가
-- GUI UX 개선
-- 여러 측정 결과 비교 기능 추가
-
-## 실제 장비 CSV 사용 순서
-
-1. `Bias 폴더 추가`를 누르고 한 Bias 폴더를 선택하거나, 여러 Bias 폴더가 들어 있는 공통 상위 폴더를 한 번 선택합니다. 하위의 CSV가 모두 추가되며, 파일명이 `-175mV 20mV...`, `-175mV 40mV...` 형식이면 Bias와 Vac가 자동 입력됩니다. 개별 CSV는 `CSV 추가`로도 넣을 수 있습니다.
-2. x 열에서 `[Filename] Vac`를 선택하고, y 열에서 `[Auto-average capacitance]`를 선택합니다.
-3. C unit을 실제 CSV 단위로 지정합니다. `capacitance_F`라면 `F`입니다.
-4. epsilon_r, Area를 입력한 뒤 `전체 파일에 ε/Area 적용`을 누릅니다. 이후 추가하는 CSV도 이 소자값을 자동으로 유지하며, Bias/Vac는 파일명에서 자동 인식합니다.
-5. `분석 실행`을 누르면 10개 파일이 하나의 Bias group으로 묶여 평균 capacitance 10점을 만들고 order-2 fitting을 수행합니다.
-6. 현재 CSV를 삭제해도 분석 결과는 유지됩니다. 왼쪽 Preview의 `저장된 Bias preview`에서 기존 Bias를 다시 선택할 수 있습니다.
-7. 여러 Bias 결과가 누적된 뒤 `N_CV / N_DL vs W 그래프`를 누르면 새 창에서 `10^16`–`10^19 cm^-3` 로그축 overlay plot을 열고 PNG로 저장할 수 있습니다. 로그축 특성상 그래프는 Summary의 absolute density를 사용하며, signed 값은 CSV에 별도로 보존됩니다.
-
-서로 다른 DC bias의 10개 세트를 같이 추가하면 파일명에서 bias별로 자동 그룹화되어 nominal bias 기준 N_CV를 계산합니다. 한 group만 있는 경우에는 CSV 내부 `bias_V`를 이용한 local N_CV를 fallback으로 사용하며, summary의 `N_CV_method` 열에서 계산 방법을 확인할 수 있습니다.
-
-## 주의
-
-입력 capacitance 단위를 GUI에서 정확히 지정해야 하며, 내부 계산은 F와 SI 단위로 변환됩니다. 논문 본문은 Eq. (11)-(12)의 `dV`를 peak-to-peak voltage라고 명시하지만, 장비 화면의 `Vac`는 peak 또는 RMS amplitude로 표시될 수 있으므로 GUI에서 입력 convention을 선택해야 합니다. `[Filename] Vac`를 선택하면 파일명에서 읽은 Vac가 사용됩니다. `N_DL`의 signed와 absolute 값을 모두 저장해 C1 부호 convention을 확인할 수 있게 했습니다. `N_CV`는 bias별 `C0`를 smoothing한 뒤 `dC/dV`를 계산하므로, smoothing window를 너무 크게 설정하면 공간 profile이 과도하게 평활화될 수 있습니다.
+배포본에는 원본 연구 데이터, 장비 접속 설정과 내부 실행 로그를 포함하지 않습니다. 공개용 ZIP은 기존 EXE를 유지하고 필수 실행 리소스·사용 안내·검증 요약만 포함하도록 다시 구성했습니다. MFIA 1.5 원격 모니터링 개발본은 이번 배포 대상에 포함하지 않았습니다.

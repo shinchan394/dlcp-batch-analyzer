@@ -12,9 +12,21 @@ CQD 광검출기 연구의 **측정 → 분석 → 시각화** 작업을 개선�
 
 위 다운로드는 해당 Release가 공개된 뒤 사용할 수 있습니다. ZIP을 모두 압축 해제하고 내부 실행 안내를 따르세요. Python 설치는 필요 없습니다. PLOT은 EXE와 `_internal` 폴더를 함께 유지해야 합니다.
 
-**소스 공개 범위:** 루트의 `dlcp_gui.py`, 빌드 스크립트와 `DLCP_Batch_Analyzer_v7.exe`는 과거 V7입니다. 최신 세 프로그램의 소스는 이 저장소에 아직 반영되지 않았습니다. V7 소스로 최신 배포본을 재현할 수 있다고 주장하지 않습니다. [V7 원래 안내](docs/LEGACY_V7_README.md)를 별도로 보존합니다.
+이 저장소는 **현재 배포본과 사용 안내 중심**으로 정리했습니다. 과거 V7 실행파일·코드·빌드 예제는 현재 트리에서 제거했습니다. Git 기록은 보존하며, 최신 프로그램의 소스 코드는 이번 공개 범위에 포함하지 않습니다.
 
 [개발 경험과 문제 해결](docs/PORTFOLIO_KO.md) · [사용 방법과 검증 범위](docs/PROGRAMS_KO.md) · [Release](https://github.com/shinchan394/dlcp-batch-analyzer/releases/tag/research-toolkit-2026-10-16)
+
+[설명서와 이미지 ZIP 다운로드](https://github.com/shinchan394/dlcp-batch-analyzer/releases/download/research-toolkit-2026-10-16/CQD_Research_Toolkit_Docs_2026-10-16.zip)
+
+## 개발 과정과 출력 예시
+
+![발표 자료에 포함된 DLCP 분석 GUI](docs/images/dlcp_ui_presentation_20260907.png)
+
+2026-09-07 발표에 포함된 **당시 DLCP v13 실행 화면**입니다. CSV 입력, 피팅, Bias별 결과를 한 화면에 통합한 개발 과정을 보여주며 최신 V17.2 화면으로 표시하지 않습니다.
+
+![PLOT 2.1.1 EIS 출력 예시](docs/images/plot_2_1_1_eis_synthetic.png)
+
+**PLOT 2.1.1 검증 과정에서 저장한 합성 데이터 출력**입니다. 실제 측정 결과나 프로그램 창 전체의 스크린샷이 아닙니다. [이미지 출처와 확인 범위](docs/SCREENSHOTS_KO.md)를 함께 제공합니다.
 
 ## 연구에서 발견한 문제
 

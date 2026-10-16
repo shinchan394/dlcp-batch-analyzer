@@ -1,0 +1,21 @@
+[
+  {
+    "image": "images/dlcp_ui_presentation_20260907.png",
+    "sha256": "550b2bc6c02d5f0d4eb8abad3ff7749716f0d75a1909ad25ddcd18a259247c80",
+    "original_image_bytes_preserved": true,
+    "kind": "historical_application_screenshot",
+    "presentation": "9.7_DLCP_실측EIS_최종.pptx",
+    "slide": 3,
+    "displayed_version": "13",
+    "latest_version_screenshot": false
+  },
+  {
+    "image": "images/plot_2_1_1_eis_synthetic.png",
+    "sha256": "e7f9175821c84303058a9f9277ad7153380316ad88119aff8bc09b7c9c214b6f",
+    "original_image_bytes_preserved": true,
+    "kind": "application_graph_export",
+    "software_version": "2.1.1",
+    "synthetic_data": true,
+    "full_gui_screenshot": false
+  }
+]

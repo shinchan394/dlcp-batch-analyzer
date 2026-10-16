@@ -22,4 +22,4 @@ ZIP을 모두 풀고 `Measurement_Plot_Studio.exe`를 실행합니다. **`_inter
 
 세 프로그램은 Python 없이 사용하는 Windows x64 배포본입니다. 기존 EXE 바이트는 유지하고 배포 ZIP에서 개발용 소스, 실행 로그와 연구 데이터 fixture를 제외했습니다. 검증 요약과 SHA-256은 ZIP 내부 또는 Release의 `SHA256SUMS.txt`를 확인하세요.
 
-현재 저장소의 Python 코드는 과거 V7입니다. 최신 소스 공개 및 재현 가능한 빌드 환경 공개는 별도 작업입니다. 소스·합성 데이터·공개 가능한 화면 예시를 추가할 때 연구 자료의 공개 범위를 확인합니다.
+현재 트리의 V7 코드·EXE·빌드 예제는 제거했습니다. 과거 Git 기록은 보존합니다. 최신 소스 공개 및 재현 가능한 빌드 환경 공개는 별도 작업입니다. [이미지 출처](SCREENSHOTS_KO.md)와 [Release](https://github.com/shinchan394/dlcp-batch-analyzer/releases/tag/research-toolkit-2026-10-16)의 설명서 ZIP을 확인하세요.
